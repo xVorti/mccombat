@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Privacy – MC Combat Support</title>
+  <meta name="description" content="Terms of Service and Privacy Policy for MC Combat Support." />
+  <link rel="stylesheet" href="css/style.css?v=3" />
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <img class="brand-img" src="logo-trans.png" alt="MC Combat Logo" />
+        <span>MC Combat Support</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="legal.html?view=tos" class="active">Terms of Service</a>
+        <a href="legal.html?view=privacy">Privacy Policy</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="legal-container">
+      <div class="legal-tabs">
+        <button type="button" data-view="tos">Terms of Service</button>
+        <button type="button" data-view="privacy">Privacy Policy</button>
+      </div>
+
+      <section class="legal-doc" id="tos">
+        <h1>Terms of Service</h1>
+        <p class="updated">Loading…</p>
+      </section>
+
+      <section class="legal-doc" id="privacy">
+        <h1>Privacy Policy</h1>
+        <p class="updated">Loading…</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="legal.html?view=tos">Terms of Service</a>
+      <a href="legal.html?view=privacy">Privacy Policy</a>
+    </div>
+    <p>© 2026 MC Combat · mccombat.net</p>
+  </footer>
+
+  <script src="js/legal-data.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var initial = params.get("view") === "privacy" ? "privacy" : "tos";
+
+      function activate(view) {
+        document.querySelectorAll(".legal-doc").forEach(function (el) {
+          el.classList.toggle("active", el.id === view);
+        });
+        if (view === "tos" || view === "privacy") {
+          renderLegal(view);
+        }
+        document.querySelectorAll(".legal-tabs button").forEach(function (btn) {
+          btn.classList.toggle("active", btn.dataset.view === view);
+        });
+      }
+
+      document.querySelectorAll(".legal-tabs button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          activate(btn.dataset.view);
+          history.replaceState(null, "", "?view=" + btn.dataset.view);
+        });
+      });
+
+      activate(initial);
+    })();
+  </script>
+</body>
+</html>
